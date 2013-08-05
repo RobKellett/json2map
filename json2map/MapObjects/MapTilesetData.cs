@@ -1,4 +1,4 @@
-﻿namespace TinyDungeon.Utils.Maps.MapObjects
+﻿namespace json2map.MapObjects
 {
 	class MapTilesetData
 	{

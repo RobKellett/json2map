@@ -48,12 +48,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Level\Map.cs" />
-    <Compile Include="Level\MapLayer.cs" />
-    <Compile Include="Level\MapTile.cs" />
-    <Compile Include="Level\TileSetData.cs" />
+    <Compile Include="MapObjects\Map.cs" />
+    <Compile Include="MapObjects\MapLayer.cs" />
+    <Compile Include="MapObjects\MapTile.cs" />
+    <Compile Include="MapObjects\MapTilesetData.cs" />
     <Compile Include="MapReader.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Driver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

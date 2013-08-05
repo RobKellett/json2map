@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TinyDungeon.Utils.Maps.MapObjects
+namespace json2map.MapObjects
 {
 	class MapLayer
 	{

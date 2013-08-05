@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TinyDungeon.Utils.Maps.MapObjects;
+using json2map.MapObjects;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace TinyDungeon.Utils.Maps
+namespace json2map
 {
 	static class MapReader
 	{

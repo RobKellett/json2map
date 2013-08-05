@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using json2map.MapObjects;
 
 namespace json2map
 {
@@ -21,7 +22,7 @@ namespace json2map
 				string json = File.ReadAllText(fileDialog.FileName);
 
 				// Parse the JSON into a new Map object
-				Level.Map newMap = MapReader.readJson(json);
+				Map newMap = MapReader.ReadJson(json);
 
 				// Verify the map
 				if (!MapReader.verifyMap(newMap))
