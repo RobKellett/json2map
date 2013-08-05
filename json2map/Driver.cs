@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace json2map
 {
-	class Program
+	class Driver
 	{
 		[STAThread]
 		static void Main(string[] args)
