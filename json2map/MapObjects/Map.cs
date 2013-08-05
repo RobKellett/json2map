@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace json2map.Level
+namespace TinyDungeon.Utils.Maps.MapObjects
 {
 	enum MapOrientation
 	{
@@ -21,7 +21,7 @@ namespace json2map.Level
 
 		private List<MapLayer> _mapLayers;
 
-		private List<TilesetData> _tileSetData;
+		private List<MapTilesetData> _tileSetData;
 
 		#region Properties
 		public int MapWidth
@@ -64,9 +64,9 @@ namespace json2map.Level
 			set { _mapLayers = value; }
 		}
 
-		public List<TilesetData> TileSetData
+		public List<MapTilesetData> TileSetData
 		{
-			get { if (_tileSetData == null) { _tileSetData = new List<TilesetData>(); } return _tileSetData; }
+			get { if (_tileSetData == null) { _tileSetData = new List<MapTilesetData>(); } return _tileSetData; }
 			set { _tileSetData = value; }
 		}
 		#endregion

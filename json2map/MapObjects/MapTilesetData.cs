@@ -1,6 +1,6 @@
-﻿namespace json2map.Level
+﻿namespace TinyDungeon.Utils.Maps.MapObjects
 {
-	class TilesetData
+	class MapTilesetData
 	{
 		private int _firstID;
 
@@ -57,7 +57,7 @@
 		#endregion
 
 		#region Constructors
-		public TilesetData() { }
+		public MapTilesetData() { }
 		#endregion
 	}
 }

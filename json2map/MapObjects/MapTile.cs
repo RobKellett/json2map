@@ -1,4 +1,4 @@
-﻿namespace json2map.Level
+﻿namespace TinyDungeon.Utils.Maps.MapObjects
 {
 	enum MapTileType
 	{
