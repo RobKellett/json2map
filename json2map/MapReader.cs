@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using json2map.MapObjects;
-using System.Text;
-using Newtonsoft.Json;
+using Json2Map.Maps.MapObjects;
 using Newtonsoft.Json.Linq;
 
-namespace json2map
+namespace Json2Map.Maps
 {
 	static class MapReader
 	{
@@ -43,16 +39,20 @@ namespace json2map
 
 				// Parse the map's tile layers
 				JArray _layersJson = JArray.Parse(_mapJson["layers"].ToString());
-				foreach (dynamic _layer in _layersJson)
+				for (int _layerIndex = 0; _layerIndex < _layersJson.Count; _layerIndex++)
 				{
-					MapLayer _newLayer = new MapLayer();
+					dynamic _layer = _layersJson[_layerIndex];
 
-					// Verify the layer is a tilelayer
+					// Handle regular 'ol tilelayers
 					if (_layer["type"] == "tilelayer")
 					{
+						MapTileLayer _newLayer = new MapTileLayer();
+
 						// Parse the layer's general info
+						_newLayer.LayerName = _layer.name.ToString();
 						_newLayer.LayerWidth = int.Parse(_layer["width"].ToString());
 						_newLayer.LayerHeight = int.Parse(_layer["height"].ToString());
+						_newLayer.LayerVisibility = bool.Parse(_layer["visible"].ToString());
 
 						// Parse the layer's tiles
 						JArray _tilesJson = JArray.Parse(_layer["data"].ToString());
@@ -61,10 +61,44 @@ namespace json2map
 							MapTile _newTile = new MapTile(int.Parse(_tile.ToString()));
 							_newLayer.Tiles.Add(_newTile);
 						}
-					}
 
-					_newLayer.LayerName = _layer.name.ToString();
-					_newMap.MapLayers.Add(_newLayer);
+						// Figure out the layer's depth
+						float _layerStepAmount = (Constants.DrawDepthData.MapLayers_Max - Constants.DrawDepthData.MapLayers_Min) / (_layersJson.Count + 1);
+						_newLayer.LayerDepth =
+							Constants.DrawDepthData.MapLayers_Min
+							+ (_layerStepAmount * (_layerIndex + 1));
+
+						// Handle a specific tilelayer that defines a relative LayerDepth for GameObjects
+						if (_layer["name"].ToString() == "Objects")
+						{
+							_newMap.ObjectLayer = _newLayer;
+						}
+
+						_newMap.MapLayers.Add(_newLayer);
+					}
+					// Handle a specific objectlayer that defines "regions" for starting locations, control groups, etc.
+					else if (_layer["type"] == "objectgroup" && _layer["name"].ToString() == "Regions")
+					{
+						JArray _objectsJson = JArray.Parse(_layer["objects"].ToString());
+						foreach (dynamic _region in _objectsJson)
+						{
+							Rectangle _newRegion = new Rectangle(
+								int.Parse(_region["x"].ToString()),
+								int.Parse(_region["y"].ToString()),
+								int.Parse(_region["width"].ToString()),
+								int.Parse(_region["height"].ToString())
+							);
+
+							if (_region["type"].ToString().Contains("_start"))
+							{
+								_newMap.PlayerStartRegions.Add(_newRegion);
+							}
+							else if (_region["type"].ToString().Contains("control_point"))
+							{
+								_newMap.ControlPointRegions.Add(_newRegion);
+							}
+						}
+					}
 				}
 
 				// Parse the map's tileset data
@@ -90,22 +124,25 @@ namespace json2map
 
 					// Parse through tileproperties for additional data
 					//TODO: So far this only supports "tiletype" data
-					foreach (dynamic _tile in (JObject)_tileset["tileproperties"])
+					if (_tileset["tileproperties"] != null)
 					{
-						foreach (dynamic _tileProperty in _tile.Value)
+						foreach (dynamic _tile in (JObject)_tileset["tileproperties"])
 						{
-							switch ((string)_tileProperty.Name)
+							foreach (dynamic _tileProperty in _tile.Value)
 							{
-								case "tiletype":
-									ChangeTileType(
-										int.Parse(_tile.Key) + 1,				// Tile numbering starts at 1
-										_tileProperty.Value.ToString(),
-										_newMap
-									);
-									break;
+								switch ((string)_tileProperty.Name)
+								{
+									case "tiletype":
+										ChangeTileType(
+											int.Parse(_tile.Key) + _newTileset.FirstID,            // Tile numbering starts at 0 here for reasons unknown, so we have to add the Id for the first tile
+											_tileProperty.Value.ToString(),
+											_newMap
+										);
+										break;
 
-								default:
-									break;
+									default:
+										break;
+								}
 							}
 						}
 					}
@@ -115,7 +152,7 @@ namespace json2map
 			}
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine("An error occured while reading the map :(\n" + ex.ToString());
+				System.Diagnostics.Debug.WriteLine("A nondescript error occured while reading the map ¯\\_(ツ)_/¯\n" + ex.ToString());
 			}
 
 			return _newMap;
@@ -135,12 +172,18 @@ namespace json2map
 			}
 
 			// The width&height of the map should be the same as the width&height of each of the layers
-			foreach (MapLayer _layer in map.MapLayers)
+			foreach (MapTileLayer _layer in map.MapLayers)
 			{
 				if (_layer.LayerWidth != map.MapWidth || _layer.LayerHeight != map.MapHeight)
 				{
 					return false;
 				}
+			}
+
+			// Map tiles should be square
+			if (map.TileHeight != map.TileWidth)
+			{
+				return false;
 			}
 
 			// The width & height (in pixels) of the tiles should be the same
@@ -152,8 +195,14 @@ namespace json2map
 				}
 			}
 
-			// The number of tiles in each layer should be equal to that layer's (width * height)
-
+			//TODO: The number of tiles in each layer should be equal to that layer's (width * height)
+			foreach (MapTileLayer _layer in map.MapLayers)
+			{
+				if (_layer.Tiles.Count != (_layer.LayerWidth * _layer.LayerHeight))
+				{
+					return false;
+				}
+			}
 
 			return true;
 		}
@@ -165,12 +214,11 @@ namespace json2map
 		/// <param name="newTileType">A string representing the new tiletype.</param>
 		/// <param name="map">The map object to replace tiles from.</param>
 		/// <returns></returns>
-		public static int ChangeTileType(int tileNumberToChange, string newTileType, Map map)
+		private static int ChangeTileType(int tileNumberToChange, string newTileType, Map map)
 		{
-			Console.WriteLine("Changing tile#" + tileNumberToChange + " to " + newTileType);
 			int _tilesChanged = 0;
-			
-			foreach (MapLayer _layer in map.MapLayers)
+
+			foreach (MapTileLayer _layer in map.MapLayers)
 			{
 				foreach (MapTile _tile in _layer.Tiles)
 				{
@@ -195,6 +243,27 @@ namespace json2map
 			}
 
 			return _tilesChanged;
+		}
+	}
+
+	public class Rectangle
+	{
+		public int X;
+		public int Y;
+		public int Width;
+		public int Height;
+
+		public Rectangle()
+		{
+
+		}
+
+		public Rectangle(int x, int y, int width, int height)
+		{
+			X = x;
+			Y = y;
+			Width = width;
+			Height = height;
 		}
 	}
 }

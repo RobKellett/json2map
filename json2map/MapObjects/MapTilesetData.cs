@@ -1,8 +1,8 @@
-﻿namespace json2map.MapObjects
+﻿namespace Json2Map.Maps.MapObjects
 {
 	class MapTilesetData
 	{
-		private int _firstID;
+		private int _firstId;
 
 		private string _tilesetName;
 		private string _tilesetPath;
@@ -14,12 +14,13 @@
 		private int _tileHeight;
 
 		//private int _spacing;
-		//private int _margrin;
+		//private int _margin;
 
 		#region Properties
-		public int FirstID{
-			get { return _firstID; }
-			set { _firstID = value; }
+		public int FirstID
+		{
+			get { return _firstId; }
+			set { _firstId = value; }
 		}
 
 		public string TilesetName

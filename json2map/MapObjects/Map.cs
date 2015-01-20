@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace json2map.MapObjects
+namespace Json2Map.Maps.MapObjects
 {
 	enum MapOrientation
 	{
@@ -11,39 +11,44 @@ namespace json2map.MapObjects
 
 	class Map
 	{
-		private int _mapWidth;
-		private int _mapHeight;
+		private int mapWidth;
+		private int mapHeight;
 
-		private int _tileWidth;
-		private int _tileHeight;
+		private int tileWidth;
+		private int tileHeight;
 
 		private string _mapOrientation;
 
-		private List<MapLayer> _mapLayers;
+		private List<MapTileLayer> _mapTileLayers;
 
 		private List<MapTilesetData> _tileSetData;
+
+		private List<Rectangle> _playerStartRegions;
+		private List<Rectangle> _controlPointRegions;
+
+		private MapLayer _objectLayer;
 
 		#region Properties
 		public int MapWidth
 		{
-			get { return _mapWidth; }
-			set { _mapWidth = value; }
+			get { return mapWidth; }
+			set { mapWidth = value; }
 		}
 		public int MapHeight
 		{
-			get { return _mapHeight; }
-			set { _mapHeight = value; }
+			get { return mapHeight; }
+			set { mapHeight = value; }
 		}
 
 		public int TileWidth
 		{
-			get { return _tileWidth; }
-			set { _tileWidth = value; }
+			get { return tileWidth; }
+			set { tileWidth = value; }
 		}
 		public int TileHeight
 		{
-			get { return _tileHeight; }
-			set { _tileHeight = value; }
+			get { return tileHeight; }
+			set { tileHeight = value; }
 		}
 
 		public string MapOrientation
@@ -58,16 +63,32 @@ namespace json2map.MapObjects
 			}
 		}
 
-		public List<MapLayer> MapLayers
+		public List<MapTileLayer> MapLayers
 		{
-			get { if (_mapLayers == null) { _mapLayers = new List<MapLayer>(); } return _mapLayers; }
-			set { _mapLayers = value; }
+			get { if (_mapTileLayers == null) { _mapTileLayers = new List<MapTileLayer>(); } return _mapTileLayers; }
+			set { _mapTileLayers = value; }
 		}
 
 		public List<MapTilesetData> TileSetData
 		{
 			get { if (_tileSetData == null) { _tileSetData = new List<MapTilesetData>(); } return _tileSetData; }
 			set { _tileSetData = value; }
+		}
+
+		public List<Rectangle> PlayerStartRegions
+		{
+			get { if (_playerStartRegions == null) { _playerStartRegions = new List<Rectangle>(); } return _playerStartRegions; }
+		}
+
+		public List<Rectangle> ControlPointRegions
+		{
+			get { if (_controlPointRegions == null) { _controlPointRegions = new List<Rectangle>(); } return _controlPointRegions; }
+		}
+
+		public MapLayer ObjectLayer
+		{
+			get { return _objectLayer; }
+			set { _objectLayer = value; }
 		}
 		#endregion
 
@@ -76,9 +97,33 @@ namespace json2map.MapObjects
 
 		public Map(int width, int height)
 		{
-			_mapWidth = width;
-			_mapHeight = height;
+			mapWidth = width;
+			mapHeight = height;
 		}
 		#endregion
+
+		public int[,] GetMapPassability()
+		{
+			int[,] _passability = new int[mapHeight, mapWidth];
+
+			for (int _countX = 0; _countX < mapWidth; _countX++)
+			{
+				for (int _countY = 0; _countY < mapHeight; _countY++)
+				{
+					// Assume terrain is passable until proven otherwise
+					//TODO: Good idea?
+					_passability[_countY, _countX] = 0;
+					foreach (MapTileLayer _layer in _mapTileLayers)
+					{
+						if (_layer.Tiles[(_countY * mapHeight) + _countX].TileType > MapTileType.Empty)
+						{
+							_passability[_countY, _countX] = 1;
+						}
+					}
+				}
+			}
+
+			return _passability;
+		}
 	}
 }

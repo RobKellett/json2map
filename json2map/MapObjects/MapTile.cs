@@ -1,4 +1,4 @@
-﻿namespace json2map.MapObjects
+﻿namespace Json2Map.Maps.MapObjects
 {
 	enum MapTileType
 	{
@@ -14,7 +14,8 @@
 		private int _tileNumber;
 
 		#region Properties
-		public MapTileType TileType{
+		public MapTileType TileType
+		{
 			get { return _mapTileType; }
 			set { _mapTileType = value; }
 		}

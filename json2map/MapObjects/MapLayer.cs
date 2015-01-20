@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace json2map.MapObjects
+﻿namespace Json2Map.Maps.MapObjects
 {
 	class MapLayer
 	{
@@ -10,8 +8,8 @@ namespace json2map.MapObjects
 		private string _layerName;
 
 		private float _layerDepth;
-		
-		List<MapTile> _tiles;
+
+		private bool _layerVisibility;
 
 		#region Properties
 		public int LayerWidth
@@ -37,10 +35,10 @@ namespace json2map.MapObjects
 			set { _layerDepth = value; }
 		}
 
-		public List<MapTile> Tiles
+		public bool LayerVisibility
 		{
-			get { if (_tiles == null) { _tiles = new List<MapTile>(); } return _tiles; }
-			set { _tiles = value; }
+			get { return _layerVisibility; }
+			set { _layerVisibility = value; }
 		}
 		#endregion
 
@@ -51,6 +49,8 @@ namespace json2map.MapObjects
 		{
 			_layerWidth = width;
 			_layerHeight = height;
+
+			_layerVisibility = false;
 		}
 		#endregion
 	}
