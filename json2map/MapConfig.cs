@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Json2map
+namespace Json2Map
 {
 	public class MapConfig
 	{

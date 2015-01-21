@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Json2Map;
-using Json2map;
 using Json2Map.MapObjects;
 
 namespace MapTest
