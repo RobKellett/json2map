@@ -1,13 +1,13 @@
-﻿namespace Json2Map.Maps.MapObjects
+﻿namespace Json2Map.MapObjects
 {
-	enum MapTileType
+	public enum MapTileType
 	{
 		Empty,
 		Solid,
 		Door
 	}
 
-	class MapTile
+	public class MapTile
 	{
 		private MapTileType _mapTileType;
 

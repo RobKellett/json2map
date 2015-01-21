@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Json2Map.Maps.MapObjects
+namespace Json2Map.MapObjects
 {
 	enum MapOrientation
 	{
@@ -9,7 +9,7 @@ namespace Json2Map.Maps.MapObjects
 		Orthogonal
 	}
 
-	class Map
+	public class Map
 	{
 		private int mapWidth;
 		private int mapHeight;

@@ -1,9 +1,7 @@
-﻿namespace Json2Map.Maps.MapObjects
+﻿namespace Json2Map.MapObjects
 {
-	class MapObjectLayer : MapLayer
+	public class MapObjectLayer : MapLayer
 	{
-
-
 		#region Properties
 
 		#endregion

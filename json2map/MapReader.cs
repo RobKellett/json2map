@@ -1,17 +1,25 @@
 ﻿using System;
-using Json2Map.Maps.MapObjects;
+using Json2map;
+using Json2Map.MapObjects;
 using Newtonsoft.Json.Linq;
 
-namespace Json2Map.Maps
+namespace Json2Map
 {
-	static class MapReader
+	public class MapReader
 	{
+		private MapConfig config;
+
+		public MapReader(MapConfig config)
+		{
+			this.config = config;
+		}
+
 		/// <summary>
 		/// Takes a string of JSON formatted as version 1 Tiled data and returns a POCO Map container.
 		/// </summary>
 		/// <param name="jsonString">The JSON string. The string isn't validated in any way, so passing in broken JSON syntax will throw an exception.</param>
 		/// <returns>A map container filled with all the relevant data.</returns>
-		public static Map ReadJson(string jsonString)
+		public Map ReadJson(string jsonString)
 		{
 			Map _newMap = new Map();
 
@@ -63,9 +71,9 @@ namespace Json2Map.Maps
 						}
 
 						// Figure out the layer's depth
-						float _layerStepAmount = (Constants.DrawDepthData.MapLayers_Max - Constants.DrawDepthData.MapLayers_Min) / (_layersJson.Count + 1);
+						float _layerStepAmount = (config.MapLayers_Max - config.MapLayers_Min) / (_layersJson.Count + 1);
 						_newLayer.LayerDepth =
-							Constants.DrawDepthData.MapLayers_Min
+							config.MapLayers_Min
 							+ (_layerStepAmount * (_layerIndex + 1));
 
 						// Handle a specific tilelayer that defines a relative LayerDepth for GameObjects
@@ -163,7 +171,7 @@ namespace Json2Map.Maps
 		/// </summary>
 		/// <param name="map">A map container object.</param>
 		/// <returns>True or false, depending on the map's validity.</returns>
-		public static Boolean verifyMap(Map map)
+		public Boolean verifyMap(Map map)
 		{
 			// This mapreader can only read orthogonal maps
 			if (map.MapOrientation != "orthogonal")
@@ -214,7 +222,7 @@ namespace Json2Map.Maps
 		/// <param name="newTileType">A string representing the new tiletype.</param>
 		/// <param name="map">The map object to replace tiles from.</param>
 		/// <returns></returns>
-		private static int ChangeTileType(int tileNumberToChange, string newTileType, Map map)
+		private int ChangeTileType(int tileNumberToChange, string newTileType, Map map)
 		{
 			int _tilesChanged = 0;
 
@@ -253,10 +261,7 @@ namespace Json2Map.Maps
 		public int Width;
 		public int Height;
 
-		public Rectangle()
-		{
-
-		}
+		public Rectangle() { }
 
 		public Rectangle(int x, int y, int width, int height)
 		{

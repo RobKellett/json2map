@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapObjects\Map.cs" />
+    <Compile Include="MapConfig.cs" />
     <Compile Include="MapObjects\MapLayer.cs" />
     <Compile Include="MapObjects\MapObjectLayer.cs" />
     <Compile Include="MapObjects\MapTile.cs" />

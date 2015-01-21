@@ -1,6 +1,6 @@
-﻿namespace Json2Map.Maps.MapObjects
+﻿namespace Json2Map.MapObjects
 {
-	class MapTilesetData
+	public class MapTilesetData
 	{
 		private int _firstId;
 

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Json2Map.Maps.MapObjects
+namespace Json2Map.MapObjects
 {
-	class MapTileLayer : MapLayer
+	public class MapTileLayer : MapLayer
 	{
 		List<MapTile> _tiles;
 

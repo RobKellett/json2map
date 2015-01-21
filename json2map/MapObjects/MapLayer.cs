@@ -1,6 +1,6 @@
-﻿namespace Json2Map.Maps.MapObjects
+﻿namespace Json2Map.MapObjects
 {
-	class MapLayer
+	public class MapLayer
 	{
 		private int _layerWidth;
 		private int _layerHeight;
