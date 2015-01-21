@@ -1,5 +1,5 @@
 ﻿using System;
-using Json2map;
+using Json2Map;
 using Json2Map.MapObjects;
 using Newtonsoft.Json.Linq;
 
