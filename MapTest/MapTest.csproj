@@ -60,11 +60,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\InvalidLevel01\invalidlevel01.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Assets\ValidLevel01\validlevel01.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\InvalidLevel01\invalidlevel01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\InvalidLevel01\invalidlevel01_bw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\ValidLevel01\validlevel01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

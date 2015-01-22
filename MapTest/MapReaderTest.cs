@@ -11,43 +11,59 @@ namespace MapTest
 	public class MapReaderTest
 	{
 		const string validLevel01_filename = @"validlevel01.json";
-		//const string invalidLevel01_filename = @"invalidlevel01.json";
+		const string invalidLevel01_filename = @"invalidlevel01.json";
 
 		[TestMethod]
 		// The system should ...
 		public void ParseMaps()
 		{
 			// Get the json file
-			string path = Directory.GetFiles(
+			string _path = Directory.GetFiles(
 				Environment.CurrentDirectory, validLevel01_filename, SearchOption.AllDirectories
 			).First();
-			Assert.IsNotNull(path);
+			Assert.IsNotNull(_path);
 
 			// Initalize a new map
-			MapReader mapReader = new MapReader(new MapConfig { MapLayers_Min = 0.0f, MapLayers_Max = 1.0f });
-			Map theMap = mapReader.ReadJson(path);
+			MapReader _mapReader = new MapReader(new MapConfig { MapLayers_Min = 0.0f, MapLayers_Max = 1.0f });
+			Map _theMap = _mapReader.ReadJson(File.ReadAllText(_path));
 
 			// Make sure the Map object is not null
-			Assert.IsNotNull(theMap);
+			Assert.IsNotNull(_theMap);
 		}
 
 		[TestMethod]
 		// The system should ...
 		public void VerifyMaps()
 		{
-			// Get the json file
-			string path = Directory.GetFiles(
+			MapReader _mapReader = new MapReader(new MapConfig { MapLayers_Min = 0.0f, MapLayers_Max = 1.0f });
+
+			// Get the json file (for the valid map)
+			string _path_valid = Directory.GetFiles(
 				Environment.CurrentDirectory, validLevel01_filename, SearchOption.AllDirectories
 			).First();
-			Assert.IsNotNull(path);
+			Assert.IsNotNull(_path_valid);
 
-			// Initalize a new map
-			MapReader mapReader = new MapReader(new MapConfig { MapLayers_Min = 0.0f, MapLayers_Max = 1.0f });
-			Map theMap = mapReader.ReadJson(path);
+			// Initalize a new map (for the valid map)
+			Map _theValidMap = _mapReader.ReadJson(File.ReadAllText(_path_valid));
 
-			// Verify that the map is valid
+			// Verify that the map is valid (for the valid map)
 			Assert.IsTrue(
-				mapReader.verifyMap(theMap)
+				_mapReader.verifyMap(_theValidMap)
+			);
+
+
+			// Get the json file (for the invalid map)
+			string _path_invalid = Directory.GetFiles(
+				Environment.CurrentDirectory, invalidLevel01_filename, SearchOption.AllDirectories
+			).First();
+			Assert.IsNotNull(_path_invalid);
+
+			// Initalize a new map (for the invalid map)
+			Map _theInvalidMap = _mapReader.ReadJson(File.ReadAllText(_path_invalid));
+
+			// Verify that the map is invalid (for the invalid map)
+			Assert.IsFalse(
+				_mapReader.verifyMap(_theInvalidMap)
 			);
 		}
 	}
