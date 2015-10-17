@@ -33,7 +33,7 @@ namespace MapTest
 
 		[TestMethod]
 		// The system should ...
-		public void VerifyMaps()
+		public void VerifyValidMaps()
 		{
 			MapReader _mapReader = new MapReader(new MapConfig { MapLayers_Min = 0.0f, MapLayers_Max = 1.0f });
 
@@ -50,7 +50,13 @@ namespace MapTest
 			Assert.IsTrue(
 				_mapReader.verifyMap(_theValidMap)
 			);
+		}
 
+		[TestMethod]
+		// The system should ...
+		public void RecognizeInvalidMaps()
+		{
+			MapReader _mapReader = new MapReader(new MapConfig { MapLayers_Min = 0.0f, MapLayers_Max = 1.0f });
 
 			// Get the json file (for the invalid map)
 			string _path_invalid = Directory.GetFiles(
