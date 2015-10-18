@@ -45,7 +45,7 @@ namespace Json2Map
 				// Parse misc. map info
 				_newMap.MapOrientation = _mapJson["orientation"].ToString();
 
-				// Parse the map's tile layers
+				// Parse the map's layers
 				JArray _layersJson = JArray.Parse(_mapJson["layers"].ToString());
 				for (int _layerIndex = 0; _layerIndex < _layersJson.Count; _layerIndex++)
 				{
@@ -84,27 +84,33 @@ namespace Json2Map
 
 						_newMap.MapLayers.Add(_newLayer);
 					}
-					// Handle a specific objectlayer that defines "regions" for starting locations, control groups, etc.
-					else if (_layer["type"] == "objectgroup" && _layer["name"].ToString() == "Regions")
+					// Handle objectlayers
+					else if (_layer["type"] == "objectgroup")
 					{
-						JArray _objectsJson = JArray.Parse(_layer["objects"].ToString());
-						foreach (dynamic _region in _objectsJson)
-						{
-							Rectangle _newRegion = new Rectangle(
-								int.Parse(_region["x"].ToString()),
-								int.Parse(_region["y"].ToString()),
-								int.Parse(_region["width"].ToString()),
-								int.Parse(_region["height"].ToString())
-							);
+						MapObjectLayer _newLayer = new MapObjectLayer();
 
-							if (_region["type"].ToString().Contains("_start"))
-							{
-								_newMap.PlayerStartRegions.Add(_newRegion);
-							}
-							else if (_region["type"].ToString().Contains("control_point"))
-							{
-								_newMap.ControlPointRegions.Add(_newRegion);
-							}
+						// Parse the layer's general info
+						_newLayer.LayerName = _layer.name.ToString();
+						_newLayer.LayerWidth = int.Parse(_layer["width"].ToString());
+						_newLayer.LayerHeight = int.Parse(_layer["height"].ToString());
+						_newLayer.LayerVisibility = bool.Parse(_layer["visible"].ToString());
+
+						JArray _objectsJson = JArray.Parse(_layer["objects"].ToString());
+						foreach (dynamic _object in _objectsJson)
+						{
+							// if (ellipse key doesn't exist && polygon key doesn't exist && polyline doesn't exist)	// We don't support ellipses, polygons, or polylines... YET
+							// {
+							MapObject _newObject = new MapObject();
+							_newObject.Rectangle = new Rectangle(
+								int.Parse(_object["x"].ToString()),
+								int.Parse(_object["y"].ToString()),
+								int.Parse(_object["width"].ToString()),
+								int.Parse(_object["height"].ToString())
+							);
+							_newObject.Name = _object["name"].ToString();
+							_newObject.Type = _object["type"].ToString();
+							_newObject.Rotation =float.Parse(_object["rotation"].toString());
+							// }
 						}
 					}
 				}
