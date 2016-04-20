@@ -19,7 +19,7 @@ namespace Json2Map.MapObjects
 
 		private string _mapOrientation;
 
-		private List<MapTileLayer> _mapTileLayers;
+		private List<MapLayer> _mapTileLayers;
 
 		private List<MapTilesetData> _tileSetData;
 
@@ -63,9 +63,9 @@ namespace Json2Map.MapObjects
 			}
 		}
 
-		public List<MapTileLayer> MapLayers
+		public List<MapLayer> MapLayers
 		{
-			get { if (_mapTileLayers == null) { _mapTileLayers = new List<MapTileLayer>(); } return _mapTileLayers; }
+			get { if (_mapTileLayers == null) { _mapTileLayers = new List<MapLayer>(); } return _mapTileLayers; }
 			set { _mapTileLayers = value; }
 		}
 
