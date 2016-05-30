@@ -1,33 +1,22 @@
 ﻿namespace Json2Map.MapObjects
 {
-	public enum MapTileType
-	{
-		Empty,
-		Solid,
-		Door
-	}
-
 	public class MapTile
 	{
 		private MapTileType _mapTileType;
-
-		private int _tileNumber;
-
-		#region Properties
 		public MapTileType TileType
 		{
 			get { return _mapTileType; }
 			set { _mapTileType = value; }
 		}
 
+		private int _tileNumber;
 		public int TileNumber
 		{
 			get { return _tileNumber; }
 			set { _tileNumber = value; }
 		}
-		#endregion
 
-		#region Constructors
+
 		public MapTile()
 		{
 			_mapTileType = MapTileType.Empty;
@@ -37,6 +26,5 @@
 		{
 			_tileNumber = tileNumber;
 		}
-		#endregion
 	}
 }

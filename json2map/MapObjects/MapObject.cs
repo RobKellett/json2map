@@ -7,65 +7,58 @@ namespace Json2Map.MapObjects
 {
 	public class MapObject
 	{
-		private Rectangle rectangle;
-		private string name;
-		private string type;
-		private float rotation;
-
-		#region Properties
+		private int x;
 		public int X
 		{
-			get { return rectangle.X; }
-			set { rectangle.X = value; }
+			get { return x; }
+			set { x = value; }
 		}
 
+		private int y;
 		public int Y
 		{
-			get { return rectangle.Y; }
-			set { rectangle.Y = value; }
+			get { return y; }
+			set { y = value; }
 		}
 
+		private int width;
 		public int Width
 		{
-			get { return rectangle.Width; }
-			set { rectangle.Width = value; }
+			get { return width; }
+			set { width = value; }
 		}
 
+		private int height;
 		public int Height
 		{
-			get { return rectangle.Height; }
-			set { rectangle.Height = value; }
+			get { return height; }
+			set { height = value; }
 		}
 
-		public Rectangle Rectangle
-		{
-			get { return rectangle; }
-			set { rectangle = value; }
-		}
-
+		private string name;
 		public string Name
 		{
 			get { return name; }
 			set { name = value; }
 		}
 
+		private string type;
 		public string Type
 		{
 			get { return type; }
 			set { type = value; }
 		}
 
+		private float rotation;
 		public float Rotation
 		{
 			get { return rotation; }
 			set { rotation = value; }
 		}
-		#endregion
 
-		#region Constructors
+		
 		public MapObject()
 		{
 		}
-		#endregion
 	}
 }
