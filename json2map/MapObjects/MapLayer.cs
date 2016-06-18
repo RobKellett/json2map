@@ -1,67 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Json2Map.MapObjects
 {
 	public class MapLayer
 	{
-		private int _layerWidth;
-		public int LayerWidth
-		{
-			get { return _layerWidth; }
-			set { _layerWidth = value; }
-		}
+		[JsonProperty(PropertyName = "width")]
+		public int Width { get; set; }
 
-		private int _layerHeight;
-		public int LayerHeight
-		{
-			get { return _layerHeight; }
-			set { _layerHeight = value; }
-		}
+		[JsonProperty(PropertyName = "height")]
+		public int Height { get; set; }
 
-		private string _layerName;
-		public string LayerName
-		{
-			get { return _layerName; }
-			set { _layerName = value; }
-		}
+		[JsonProperty(PropertyName = "name")]
+		public string Name { get; set; }
 
-		private float _layerDepth;
-		public float LayerDepth
-		{
-			get { return _layerDepth; }
-			set { _layerDepth = value; }
-		}
+		[JsonProperty(PropertyName = "visible")]
+		public bool Visible { get; set; }
 
-		private bool _layerVisibility;
-		public bool LayerVisibility
-		{
-			get { return _layerVisibility; }
-			set { _layerVisibility = value; }
-		}
+		[JsonProperty(PropertyName = "type")]
+		public string Type { get; set; }
 
-		private List<MapObject> _objects;
-		public List<MapObject> Objects
-		{
-			get { if (_objects == null) { _objects = new List<MapObject>(); } return _objects; }
-			set { _objects = value; }
-		}
+		//TODO: Opacity
+		//TODO: X
+		//TODO: Y
 
-		List<MapTile> _tiles;
-		public List<MapTile> Tiles
-		{
-			get { if (_tiles == null) { _tiles = new List<MapTile>(); } return _tiles; }
-			set { _tiles = value; }
-		}
-		
+		[JsonProperty(PropertyName = "data")]
+		public List<int> Tiles { get; set; }
 
-		public MapLayer() { }
+		[JsonProperty(PropertyName = "objects")]
+		public List<MapObject> Objects { get; set; }
+
 
 		public MapLayer(int width, int height)
 		{
-			_layerWidth = width;
-			_layerHeight = height;
-
-			_layerVisibility = false;
+			Tiles = new List<int>();
+			Objects = new List<MapObject>();
 		}
 	}
 }

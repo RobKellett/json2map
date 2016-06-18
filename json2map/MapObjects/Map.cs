@@ -1,94 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Json2Map.MapObjects
 {
-	enum MapOrientation
-	{
-		Unspecified,
-		Isometric,
-		Orthogonal
-	}
-
 	public class Map
 	{
-		private int mapWidth;
-		public int MapWidth {
-			get;
-			set;
-		}
+		[JsonProperty(PropertyName = "width")]
+		public int MapWidth { get; set; }
 
-		private int mapHeight;
-		public int MapHeight
+		[JsonProperty(PropertyName = "height")]
+		public int MapHeight { get; set; }
+
+		[JsonProperty(PropertyName = "tilewidth")]
+		public int TileWidth { get; set; }
+
+		[JsonProperty(PropertyName = "tileheight")]
+		public int TileHeight { get; set; }
+
+		[JsonProperty(PropertyName = "orientation")]
+		public string MapOrientation { get; set; }
+		
+		[JsonProperty(PropertyName = "layers")]
+		public List<MapLayer> MapLayers { get; set; }
+
+		[JsonProperty(PropertyName = "tilesets")]
+		public List<MapTilesetData> Tilesets { get; set; }
+
+
+		public Map()
 		{
-			get;
-			set;
-		}
-
-		private int tileWidth;
-		public int TileWidth
-		{
-			get;
-			set;
-		}
-
-		private int tileHeight;
-		public int TileHeight
-		{
-			get;
-			set;
-		}
-
-		private string _mapOrientation;
-		public string MapOrientation
-		{
-			get {
-				return _mapOrientation;
-			}
-			set
-			{
-				if (value == "orthogonal" || value == "isometric")
-					_mapOrientation = value;
-				else
-					_mapOrientation = "INVALID";
-			}
-		}
-
-		private List<MapLayer> _mapTileLayers;
-		public List<MapLayer> MapLayers
-		{
-			get { if (_mapTileLayers == null) { _mapTileLayers = new List<MapLayer>(); } return _mapTileLayers; }
-			set { _mapTileLayers = value; }
-		}
-
-		private List<MapTilesetData> _tileSetData;
-		public List<MapTilesetData> TileSetData
-		{
-			get { if (_tileSetData == null) { _tileSetData = new List<MapTilesetData>(); } return _tileSetData; }
-			set { _tileSetData = value; }
-		}
-
-		private List<Rectangle> _playerStartRegions;
-		public List<Rectangle> PlayerStartRegions
-		{
-			get { if (_playerStartRegions == null) { _playerStartRegions = new List<Rectangle>(); } return _playerStartRegions; }
-		}
-
-		private List<Rectangle> _controlPointRegions;
-		public List<Rectangle> ControlPointRegions
-		{
-			get { if (_controlPointRegions == null) { _controlPointRegions = new List<Rectangle>(); } return _controlPointRegions; }
-		}
-
-		private MapLayer _objectLayer;
-		public MapLayer ObjectLayer { get; set; }
-
-
-		public Map() { }
-
-		public Map(int width, int height)
-		{
-			mapWidth = width;
-			mapHeight = height;
+			MapLayers = new List<MapLayer>();
+			Tilesets = new List<MapTilesetData>();
 		}
 	}
 }

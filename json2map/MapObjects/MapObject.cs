@@ -1,64 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace Json2Map.MapObjects
 {
 	public class MapObject
 	{
-		private int x;
-		public int X
-		{
-			get { return x; }
-			set { x = value; }
-		}
+		[JsonProperty(PropertyName = "id")]
+		public int Id { get; set; }
 
-		private int y;
-		public int Y
-		{
-			get { return y; }
-			set { y = value; }
-		}
+		[JsonProperty(PropertyName = "x")]
+		public int X { get; set; }
 
-		private int width;
-		public int Width
-		{
-			get { return width; }
-			set { width = value; }
-		}
+		[JsonProperty(PropertyName = "y")]
+		public int Y { get; set; }
 
-		private int height;
-		public int Height
-		{
-			get { return height; }
-			set { height = value; }
-		}
+		[JsonProperty(PropertyName = "width")]
+		public int Width { get; set; }
 
-		private string name;
-		public string Name
-		{
-			get { return name; }
-			set { name = value; }
-		}
+		[JsonProperty(PropertyName = "height")]
+		public int Height { get; set; }
 
-		private string type;
-		public string Type
-		{
-			get { return type; }
-			set { type = value; }
-		}
+		[JsonProperty(PropertyName = "name")]
+		public string Name { get; set; }
 
-		private float rotation;
-		public float Rotation
-		{
-			get { return rotation; }
-			set { rotation = value; }
-		}
+		[JsonProperty(PropertyName = "type")]
+		public string Type { get; set; }
 
-		
-		public MapObject()
-		{
-		}
+		[JsonProperty(PropertyName = "rotation")]
+		public float Rotation { get; set; }
+
+		[JsonProperty(PropertyName = "visible")]
+		public bool Visible { get; set; }
 	}
 }
