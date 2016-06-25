@@ -1,5 +1,4 @@
-﻿using Json2Map.Utilities;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Json2Map.MapObjects
@@ -33,7 +32,7 @@ namespace Json2Map.MapObjects
 		[JsonProperty(PropertyName = "columns")]
 		public int Columns { get; set; }
 
-		[JsonProperty(PropertyName = "tiles"), JsonConverter(typeof(MapTilesetTileConverter))]
+		[JsonProperty(PropertyName = "tiles")]
 		public Dictionary<int, MapTilesetTile> Tiles { get; set; }
 
 		//TODO: Margin, Spacing, Terrains

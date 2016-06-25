@@ -54,32 +54,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Level-Reference01_6-16\Jungle_terrain.custom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Level-Reference01_6-16\objects.custom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Level-Reference01_6-16\Level-Reference01_6-16.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Level-Reference01_6-16\Level-Reference01_6-16.tmx" />
+    <None Include="Assets\Level-Reference01_6-16\README.md" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\json2map\Json2map.csproj">
       <Project>{940422e9-b7ed-4712-8a80-17cf62ffed13}</Project>
       <Name>Json2map</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\InvalidLevel01\invalidlevel01.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Assets\ValidLevel01\validlevel01.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\InvalidLevel01\invalidlevel01.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\InvalidLevel01\invalidlevel01_bw.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\ValidLevel01\validlevel01.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\ValidLevel01\validlevel01_bw.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
