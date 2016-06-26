@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json2map", "json2map\Json2map.csproj", "{940422E9-B7ED-4712-8A80-17CF62FFED13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTest", "MapTest\MapTest.csproj", "{84D22008-BD5B-478C-8E64-129B32BEF941}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json2map.Tests", "MapTest\Json2map.Tests.csproj", "{84D22008-BD5B-478C-8E64-129B32BEF941}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
