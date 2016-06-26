@@ -14,7 +14,7 @@ Open *Visual Studio*'s **Package Manager Console** and run the `Install-Package 
 Then, initalize a map somewhere in your Initalize function:
 
 ```C#
-currentMap = MapReader.ReadJson(File.ReadAllText("path/to/yourmap.json"));
+Map currentMap = MapReader.ReadJson(File.ReadAllText("path/to/yourmap.json"));
 ```
 
 Finally, update your draw method to draw your map. I use something like:
