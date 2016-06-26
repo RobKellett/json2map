@@ -1,64 +1,45 @@
-﻿namespace Json2Map.MapObjects
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace Json2Map.MapObjects
 {
 	public class MapTilesetData
 	{
-		private int _firstId;
+		[JsonProperty(PropertyName = "firstgid")]
+		public int FirstID { get; set; }
+		
+		[JsonProperty(PropertyName = "name")]
+		public string Name { get; set; }
 
-		private string _tilesetName;
-		private string _tilesetPath;
+		[JsonProperty(PropertyName = "image")]
+		public string TilesetPath { get; set; }
 
-		private int _tilesetWidth;
-		private int _tilesetHeight;
+		[JsonProperty(PropertyName = "imagewidth")]
+		public int TilesetWidth { get; set; }
 
-		private int _tileWidth;
-		private int _tileHeight;
+		[JsonProperty(PropertyName = "imageheight")]
+		public int TilesetHeight { get; set; }
 
-		//private int _spacing;
-		//private int _margin;
+		[JsonProperty(PropertyName = "tilewidth")]
+		public int TileWidth { get; set; }
 
-		#region Properties
-		public int FirstID
+		[JsonProperty(PropertyName = "tileheight")]
+		public int TileHeight { get; set; }
+
+		[JsonProperty(PropertyName = "tilecount")]
+		public int TileCount{ get; set; }
+
+		[JsonProperty(PropertyName = "columns")]
+		public int Columns { get; set; }
+
+		[JsonProperty(PropertyName = "tiles")]
+		public Dictionary<int, MapTilesetTile> Tiles { get; set; }
+
+		//TODO: Margin, Spacing, Terrains
+
+		public MapTilesetData()
 		{
-			get { return _firstId; }
-			set { _firstId = value; }
+			Tiles = new Dictionary<int, MapTilesetTile>();
 		}
-
-		public string TilesetName
-		{
-			get { return _tilesetName; }
-			set { _tilesetName = value; }
-		}
-		public string TilesetPath
-		{
-			get { return _tilesetPath; }
-			set { _tilesetPath = value; }
-		}
-
-		public int TilesetWidth
-		{
-			get { return _tilesetWidth; }
-			set { _tilesetWidth = value; }
-		}
-		public int TilesetHeight
-		{
-			get { return _tilesetHeight; }
-			set { _tilesetHeight = value; }
-		}
-
-		public int TileWidth
-		{
-			get { return _tileWidth; }
-			set { _tileWidth = value; }
-		}
-		public int TileHeight
-		{
-			get { return _tileHeight; }
-			set { _tileHeight = value; }
-		}
-		#endregion
-
-		#region Constructors
-		public MapTilesetData() { }
-		#endregion
 	}
 }

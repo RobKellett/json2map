@@ -55,11 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapObjects\Map.cs" />
-    <Compile Include="MapConfig.cs" />
     <Compile Include="MapObjects\MapLayer.cs" />
-    <Compile Include="MapObjects\MapObjectLayer.cs" />
-    <Compile Include="MapObjects\MapTile.cs" />
-    <Compile Include="MapObjects\MapTileLayer.cs" />
+    <Compile Include="MapObjects\MapObject.cs" />
+    <Compile Include="MapObjects\MapTilesetTile.cs" />
     <Compile Include="MapObjects\MapTilesetData.cs" />
     <Compile Include="MapReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

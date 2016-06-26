@@ -1,57 +1,40 @@
-﻿namespace Json2Map.MapObjects
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace Json2Map.MapObjects
 {
 	public class MapLayer
 	{
-		private int _layerWidth;
-		private int _layerHeight;
+		[JsonProperty(PropertyName = "width")]
+		public int Width { get; set; }
 
-		private string _layerName;
+		[JsonProperty(PropertyName = "height")]
+		public int Height { get; set; }
 
-		private float _layerDepth;
+		[JsonProperty(PropertyName = "name")]
+		public string Name { get; set; }
 
-		private bool _layerVisibility;
+		[JsonProperty(PropertyName = "visible")]
+		public bool Visible { get; set; }
 
-		#region Properties
-		public int LayerWidth
-		{
-			get { return _layerWidth; }
-			set { _layerWidth = value; }
-		}
-		public int LayerHeight
-		{
-			get { return _layerHeight; }
-			set { _layerHeight = value; }
-		}
+		[JsonProperty(PropertyName = "type")]
+		public string Type { get; set; }
 
-		public string LayerName
-		{
-			get { return _layerName; }
-			set { _layerName = value; }
-		}
+		//TODO: Opacity
+		//TODO: X
+		//TODO: Y
 
-		public float LayerDepth
-		{
-			get { return _layerDepth; }
-			set { _layerDepth = value; }
-		}
+		[JsonProperty(PropertyName = "data")]
+		public List<int> Tiles { get; set; }
 
-		public bool LayerVisibility
-		{
-			get { return _layerVisibility; }
-			set { _layerVisibility = value; }
-		}
-		#endregion
+		[JsonProperty(PropertyName = "objects")]
+		public List<MapObject> Objects { get; set; }
 
-		#region Constructors
-		public MapLayer() { }
 
 		public MapLayer(int width, int height)
 		{
-			_layerWidth = width;
-			_layerHeight = height;
-
-			_layerVisibility = false;
+			Tiles = new List<int>();
+			Objects = new List<MapObject>();
 		}
-		#endregion
 	}
 }
